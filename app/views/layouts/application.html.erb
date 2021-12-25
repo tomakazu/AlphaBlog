@@ -10,10 +10,11 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column">
+    <%= render 'layouts/navigation' %> 
     <% flash.each do |name,msg| %>
-      <%= msg%>
-    <%end%>
+      <%= msg %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
