@@ -9,11 +9,15 @@ class UsersController < ApplicationController
         @user = User.new
     end
 
+    def index
+        @users = User.all
+    end
+
     def create
-        @user = User.new(params.require(:user).permit(:password, :username, :email))
+        @user = User.new(set_params)
         if @user.save
             flash[:notice] = "You have successfully signed up! Welcome to Alpha Blog"
-            redirect_to articles_path
+            redirect_to @user
         else
             render 'new'
         end
@@ -25,11 +29,17 @@ class UsersController < ApplicationController
 
     def update
         @user = User.find(params[:id])
-        if @user.update(params.require(:user).permit(:password, :username, :email))
+        if @user.update(set_params)
             flash[:notice] = "Your profile is successfully updated!"
-            redirect_to articles_path
+            redirect_to @user
         else
             render 'new'
         end
+    end
+
+    private
+    
+    def set_params
+        params.require(:user).permit(:password, :username, :email)
     end
 end
