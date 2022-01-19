@@ -1,6 +1,8 @@
 <h1 class="text-center mt-4"><%= @user.username %>'s profile</h1>
 <div class="text-center mt-4">
-  <%= link_to "Edit your profile", edit_user_path(@user), class: "btn btn-outline-info" %>
+  <% if logged_in? && current_user == @user %>
+    <%= link_to "Edit your profile", edit_user_path(@user), class: "btn btn-outline-info" %>
+  <% end %>
 </div>
 <div class="flickr_pagination mt-4">
   <%= will_paginate @articles, :container => false %>
